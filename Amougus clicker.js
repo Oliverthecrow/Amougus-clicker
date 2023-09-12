@@ -236,7 +236,7 @@ function mousePressed() {
         currency -= reportcost;
         reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.032));
       }
-      if (reportlv >= 6) {
+      else if (reportlv >= 6) {
         reportlv++;
         currency -= reportcost;
         reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.02))
