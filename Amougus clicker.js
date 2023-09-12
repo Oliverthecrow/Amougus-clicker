@@ -18,7 +18,7 @@ function preload() {
   img2 = loadImage("./kill.png");
   img3 = loadImage("./Report.png");
 }
-function setup() {}
+function setup() { }
 function imposterclicked(mouseX, mouseY) {
   if (mouseX < 200 || mouseX > 450) {
     return false;
@@ -82,7 +82,7 @@ function setup() {
     color(68, 255, 247), //cyan
   ];
   amounguscolor = [
-   // this will eventually display amoung us characters that change color
+    // this will eventually display amoung us characters that change color
     //  impostercolor0 = loadImage("black.jpeg"),
     //  impostercolor1 = loadImage("blue.png"),
     //  impostercolor2 = loadImage("brown.jpeg"),
@@ -231,22 +231,22 @@ function mousePressed() {
   }
   if (reportclicked(mouseX, mouseY)) {
     if (currency >= reportcost) {
-      if(reportlv <= 5) {
-      reportlv++;
-      currency -= reportcost;
-      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.032));
+      if (reportlv <= 5) {
+        reportlv++;
+        currency -= reportcost;
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.032));
       }
-    if (reportlv >= 6) {
-    reportlv++;
-    currency -= reportcost;
-    reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.02))
-    }
+      if (reportlv >= 6) {
+        reportlv++;
+        currency -= reportcost;
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.02))
+      }
     }
   }
   if (victorybutton(mouseX, mouseY)) {
-    if (currency >= 6.2*10e+23) {
+    if (currency >= 6.2 * 10e+23) {
       haswon = true;
-      currency -= 6.2*10e+23;
+      currency -= 6.2 * 10e+23;
     }
   }
 }
