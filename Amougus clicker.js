@@ -244,9 +244,9 @@ function mousePressed() {
     }
   }
   if (victorybutton(mouseX, mouseY)) {
-    if (currency >= 6.2 * 10e+23) {
+    if (currency >= 6.2e+24) {
       haswon = true;
-      currency -= 6.2 * 10e+23;
+      currency -= 6.2e+24;
     }
   }
 }
@@ -260,8 +260,8 @@ function processtick() {
     reportlv * 0.135
   );
   let reportifkilllv100 = Math.pow(
-    reportlv * 20 * upgradelv * 5 * killlv * 10,
-    reportlv * 0.2
+    reportlv * 15 * upgradelv * 4 * killlv * 3,
+    reportlv * 0.175
   );
 
   tick++;
