@@ -160,7 +160,7 @@ function draw() {
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text("1,000,000,000\nimposters", 26, 130);
+  text("6.2*10e+23\nimposters", 26, 130);
   if (haswon) {
     fill(80, 80, 80);
     stroke(0, 0, 0);
