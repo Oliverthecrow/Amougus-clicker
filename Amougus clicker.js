@@ -231,9 +231,16 @@ function mousePressed() {
   }
   if (reportclicked(mouseX, mouseY)) {
     if (currency >= reportcost) {
+      if(reportlv <= 5) {
       reportlv++;
       currency -= reportcost;
       reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.032));
+      }
+    if (reportlv >= 6) {
+    reportlv++;
+    currency -= reportcost;
+    reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.02))
+    }
     }
   }
   if (victorybutton(mouseX, mouseY)) {
