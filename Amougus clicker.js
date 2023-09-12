@@ -219,14 +219,14 @@ function mousePressed() {
     if (currency >= upgradecost) {
       upgradelv = upgradelv + 1;
       currency = currency - upgradecost;
-      upgradecost = Math.floor(upgradecost * 1.6);
+      upgradecost = Math.floor(upgradecost * 1.58);
     }
   }
   if (killclicked(mouseX, mouseY)) {
     if (currency >= killupgradecost) {
       killlv = killlv + 1;
       currency = currency - killupgradecost;
-      killupgradecost = Math.ceil(killupgradecost * 1.14);
+      killupgradecost = Math.ceil(killupgradecost * 1.13);
     }
   }
   if (reportclicked(mouseX, mouseY)) {
@@ -234,7 +234,7 @@ function mousePressed() {
       if (reportlv <= 5) {
         reportlv++;
         currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.032));
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.030));
       }
       else if (reportlv >= 6) {
         reportlv++;
@@ -260,8 +260,8 @@ function processtick() {
     reportlv * 0.135
   );
   let reportifkilllv100 = Math.pow(
-    reportlv * 15 * upgradelv * 4 * killlv * 3,
-    reportlv * 0.175
+    reportlv * 15 * upgradelv * 5 * killlv * 7,
+    reportlv * 0.2
   );
 
   tick++;
