@@ -20,7 +20,7 @@ function preload() {
 }
 function setup() {}
 function imposterclicked(mouseX, mouseY) {
-  if (mouseX < 200 || mouseX > 450) {
+  if (mouseX < 201 || mouseX > 450) {
     return false;
   }
   if (mouseY < 100 || mouseY > 395) {
