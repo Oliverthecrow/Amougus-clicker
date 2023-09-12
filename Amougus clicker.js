@@ -260,8 +260,8 @@ function processtick() {
     reportlv * 0.135
   );
   let reportifkilllv100 = Math.pow(
-    reportlv * 20 * upgradelv * 3 * killlv * 5,
-    reportlv * 0.15
+    reportlv * 20 * upgradelv * 5 * killlv * 10,
+    reportlv * 0.2
   );
 
   tick++;
