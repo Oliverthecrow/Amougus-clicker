@@ -8,8 +8,11 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": [
+                "${workspaceFolder}/p5*.js"
+            ]
         }
     ]
 }
