@@ -237,9 +237,9 @@ function mousePressed() {
     }
   }
   if (victorybutton(mouseX, mouseY)) {
-    if (currency >= 1000000000) {
+    if (currency >= 6.2*10e+23) {
       haswon = true;
-      currency -= 1000000000;
+      currency -= 6.2*10e+23;
     }
   }
 }
