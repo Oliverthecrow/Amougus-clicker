@@ -205,7 +205,7 @@ function mousePressed() {
       );
     }
     if (reportlv >= 7) {
-      currency = Math.ceil(currency + killlv * 2 * upgradelv * 2.5 + reportlv);
+      currency = Math.ceil(currency + killlv * 3 * upgradelv * 5 + reportlv);
     }
   }
   //change colour of amougus
@@ -226,7 +226,7 @@ function mousePressed() {
     if (currency >= killupgradecost) {
       killlv = killlv + 1;
       currency = currency - killupgradecost;
-      killupgradecost = Math.ceil(killupgradecost * 1.13);
+      killupgradecost = Math.ceil(killupgradecost * 1.2);
     }
   }
   if (reportclicked(mouseX, mouseY)) {
@@ -260,7 +260,7 @@ function processtick() {
     reportlv * 0.135
   );
   let reportifkilllv100 = Math.pow(
-    reportlv * 15 * upgradelv * 5 * killlv * 7,
+    reportlv * 13 * upgradelv * 5 * killlv * 3,
     reportlv * 0.2
   );
 
