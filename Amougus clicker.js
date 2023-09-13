@@ -97,6 +97,9 @@ function setup() {
     //  impostercolor11 = loadImage("yellow.jpeg"),
   ];
 }
+function formatNumber(number) {
+  return number > 1000000000 ? number.toExponential() : number.toLocaleString("en-US");
+}
 function draw() {
   processtick();
 
@@ -117,9 +120,9 @@ function draw() {
   textSize(30);
   text("Click", 315, 300);
   text("imposters", 24, 25);
-  text(currency, 175, 25);
+  text(formatNumber(currency), 175, 25);
   textSize(20);
-  text("imposters per second " + imposterspersecond, 24.5, 55);
+  text("imposters per second " + formatNumber(imposterspersecond), 24.5, 55);
 
   image(img, 20, 300);
   stroke(0);
@@ -130,7 +133,7 @@ function draw() {
   stroke(0);
   strokeWeight(4);
   text("Level " + upgradelv, 43, 290);
-  text(upgradecost + " cost", 43, 310);
+  text(formatNumber(upgradecost) + " cost", 43, 310);
 
   image(img2, 585, 300);
   fill(255);
@@ -141,14 +144,14 @@ function draw() {
   textSize(15);
   stroke(0);
   strokeWeight(4);
-  text(killupgradecost + " cost", 610, 310);
+  text(formatNumber(killupgradecost) + " cost", 610, 310);
   text("Level " + killlv, 610, 290);
 
   image(img3, 575, 5);
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text(reportcost + " cost", 610, 140);
+  text(formatNumber(reportcost) + " cost", 610, 140);
   text("Level " + reportlv, 610, 120);
 
   fill(60, 80, 180);
