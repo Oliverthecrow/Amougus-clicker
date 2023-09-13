@@ -202,7 +202,7 @@ function mousePressed() {
         currency + killlv * 0.25 * 1.2 * upgradelv + reportlv
       );
     }
-    if (reportlv >= 3) {
+    if (reportlv >= 3 && reportlv < 7) {
       currency = Math.ceil(
         currency + killlv * 0.3 * 1.8 * upgradelv * 1.3 + reportlv
       );
