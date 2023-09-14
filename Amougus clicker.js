@@ -266,6 +266,10 @@ function processtick() {
     reportlv * 13 * upgradelv * 5 * killlv * 3,
     reportlv * 0.2
   );
+  let reportifkilllv350 = Math.pow(
+    reportlv * 100 * upgrade * 100 * killlv * 100, 
+    reportlv
+  );
 
   tick++;
   if (tick % 60 == 0) {
@@ -280,6 +284,9 @@ function processtick() {
     if (killlv >= 100) {
       currency = Math.ceil(currency + reportifkilllv100);
       imposterspersecond = Math.ceil(reportifkilllv100);
+    }
+    if (killlv >=350) {
+      currency = Math.ceil(currency + reportifkilllv350)
     }
   }
 }
