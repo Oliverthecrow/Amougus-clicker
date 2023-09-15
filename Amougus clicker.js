@@ -289,5 +289,7 @@ function processtick() {
       currency = Math.ceil(currency + reportifkilllv350)
     }
   }
+
 }
+
 
