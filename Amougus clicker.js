@@ -10,7 +10,7 @@ let killupgradecost = 5;
 let reportcost = 1000;
 let tick = 0;
 let reportlv = 0;
-let haswon = true;
+let haswon = false;
 let imposterspersecond = 0;
 let selected_hat = 0;
 let hats;
@@ -172,7 +172,7 @@ function draw() {
       image(gun,500,420)
     }
     else {
-    fill(80, 80, 80);
+    fill(50, 50, 50);
     stroke(0, 0, 0);
     strokeWeight(3);
     bezier(650, 650, 600, 720, 540, 600, 490, 500);
