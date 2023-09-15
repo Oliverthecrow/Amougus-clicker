@@ -13,7 +13,7 @@ let reportlv = 0;
 let haswon = false;
 let imposterspersecond = 0;
 let hats;
-let selected_hat = 0
+let selected_hat = 0;
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
