@@ -13,7 +13,7 @@ let reportlv = 0;
 let haswon = false;
 let imposterspersecond = 0;
 let hats;
-let selected_hat = 0;
+let selected_hat = 0
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
@@ -94,9 +94,9 @@ function setup() {
     color(68, 255, 247), //cyan
   ];
   hats = [
-    loadImage(""),
-    loadImage("./party hat.png"),
-    loadImage("./cowboy hat.png"),
+    nohat = loadImage(""),
+    partyhat = loadImage("./party hat.png"),
+    cowboyhat = loadImage("./cowboy hat.png"),
   ];
 }
 function formatNumber(number) {
@@ -190,6 +190,14 @@ function draw() {
   fill(255)
   textSize(20)
   text("Customize", 2110, 340)
+
+  if(selected_hat = 2){
+    fill(120,90,45);
+    stroke(0);
+    strokeWeight(1);
+    textSize(25);
+    text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US",600,150);
+  }
 }
 function mousePressed() {
   //    print(mouseX + ", X");
