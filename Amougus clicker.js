@@ -10,17 +10,19 @@ let killupgradecost = 5;
 let reportcost = 1000;
 let tick = 0;
 let reportlv = 0;
-let haswon = false;
+let haswon = true;
 let imposterspersecond = 0;
 let selected_hat = 0;
 let hats;
 let song = new Audio('western-125865.mp3');
+let songstop = stop
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
   img2 = loadImage("./kill.png");
   img3 = loadImage("./Report.png");
   img6 = loadImage("./customise.png");
+  gun = loadImage("./gun.png");
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -105,7 +107,7 @@ function formatNumber(number) {
 }
 function draw() {
   processtick();
-  background(125, 125, 125);
+  background(80, 80, 80);
   image(hats[selected_hat], 750, 135);
   fill(colors[selected_color]);
   rect(700, 325, 550, 600);
@@ -166,6 +168,10 @@ function draw() {
   strokeWeight(3);
   text("6.2^24\nimposters", 110, 210);
   if (haswon) {
+    if(selected_hat == 2) {
+      image(gun,500,420)
+    }
+    else {
     fill(80, 80, 80);
     stroke(0, 0, 0);
     strokeWeight(3);
@@ -180,6 +186,7 @@ function draw() {
     rotate(0.7);
     fill(255, 200, 100);
     text("You are now legally SUSSY!", 1350, 450);
+    }
   }
   //move the text to the left by 4 pixels
   textX = textX - 4;
@@ -197,11 +204,15 @@ function draw() {
     stroke(0);
     strokeWeight(1);
     textSize(25);
+    song.volume = 0.3
     song.play();
-    background(140,90,50,65);
+    background(140,90,50,70);
     text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US",600,150);
     selected_color = 10;
-
+  }
+  if (selected_hat <= 1) {
+    song.pause();
+    song.currentTime = 0
   }
 }
 function mousePressed() {
