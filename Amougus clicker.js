@@ -1,4 +1,4 @@
-let textX = 700;
+let textX = 2100;
 let textsize = 20;
 let selected_color = 0;
 let colors;
@@ -20,52 +20,52 @@ function preload() {
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
-  if (mouseX < 200 || mouseX > 450) {
+  if (mouseX < 695 || mouseX > 1250) {
     return false;
   }
-  if (mouseY < 100 || mouseY > 395) {
+  if (mouseY < 320 || mouseY > 905) {
     return false;
   }
   return true;
 }
 function upgradeclicked(mouseX, mouseY) {
-  if (mouseX < 10 || mouseX > 140) {
+  if (mouseX < 20 || mouseX > 260) {
     return false;
   }
-  if (mouseY < 320 || mouseY > 390) {
+  if (mouseY < 655 || mouseY > 895) {
     return false;
   }
   return true;
 }
 function killclicked(mouseX, mouseY) {
-  if (mouseX < 580 || mouseX > 680) {
+  if (mouseX < 1590 || mouseX > 1845) {
     return false;
   }
-  if (mouseY < 285 || mouseY > 385) {
+  if (mouseY < 645 || mouseY > 895) {
     return false;
   }
   return true;
 }
 function reportclicked(mouseX, mouseY) {
-  if (mouseX < 572 || mouseX > 677) {
+  if (mouseX < 1585 || mouseX > 1855) {
     return false;
   }
-  if (mouseY < 20 || mouseY > 105) {
+  if (mouseY < 20 || mouseY > 255) {
     return false;
   }
   return true;
 }
 function victorybutton(mouseX, mouseY) {
-  if (mouseX < 20 || mouseX > 120) {
+  if (mouseX < 20 || mouseX > 325) {
     return false;
   }
-  if (mouseY < 95 || mouseY > 170) {
+  if (mouseY < 150 || mouseY > 305) {
     return false;
   }
   return true;
 }
 function setup() {
-  createCanvas(2000, 2000);
+  createCanvas(1920, 900);
   // amogus colors
   colors = [
     color(255, 153, 204), //pink
@@ -81,21 +81,6 @@ function setup() {
     color(128, 88, 45), //brown
     color(68, 255, 247), //cyan
   ];
-  amounguscolor = [
-    // this will eventually display amoung us characters that change color
-    //  impostercolor0 = loadImage("black.jpeg"),
-    //  impostercolor1 = loadImage("blue.png"),
-    //  impostercolor2 = loadImage("brown.jpeg"),
-    //  impostercolor3 = loadImage("cyan.png"),
-    //  impostercolor4 = loadImage("green.png"),
-    //  impostercolor5 = loadImage("lime.png"),
-    //  impostercolor6 = loadImage("orange.jpeg"),
-    //  impostercolor7 = loadImage("pink.png"),
-    //  impostercolor8 = loadImage("purple.png"),
-    //  impostercolor9 = loadImage("red.png"),
-    //  impostercolor10 = loadImage("white.png"),
-    //  impostercolor11 = loadImage("yellow.jpeg"),
-  ];
 }
 function formatNumber(number) {
   return number > 1000000000 ? number.toExponential() : number.toLocaleString("en-US");
@@ -108,88 +93,89 @@ function draw() {
   background(125, 125, 125);
   fill(colors[selected_color]);
   //  image(amounguscolor[selected_color], 220, 96);
-  rect(230, 130, 240, 300);
+  rect(700, 325, 550, 600);
   stroke(0);
   strokeWeight(5);
-  textSize(textsize);
+  textSize(50);
   text("Amougus", textX, 50);
 
   fill(255, 255, 255);
   stroke(0, 0, 0);
   strokeWeight(5);
   textSize(30);
-  text("Click", 315, 300);
-  text("imposters", 24, 25);
-  text(formatNumber(currency), 175, 25);
-  textSize(20);
-  text("imposters per second " + formatNumber(imposterspersecond), 24.5, 55);
+  text("Click", 950, 800);
+  textSize(50);
+  text("imposters", 50, 50);
+  text(formatNumber(currency), 290, 50);
+  textSize(35);
+  text("imposters per second " + formatNumber(imposterspersecond), 50, 110);
 
-  image(img, 20, 300);
+  image(img, 20, 650);
   stroke(0);
   strokeWeight(2);
   fill(255);
-  textSize(15);
+  textSize(30);
   fill(255);
   stroke(0);
   strokeWeight(4);
-  text("Level " + upgradelv, 43, 290);
-  text(formatNumber(upgradecost) + " cost", 43, 310);
+  text("Level " + upgradelv, 90, 625);
+  text(formatNumber(upgradecost) + " cost", 88, 660);
 
-  image(img2, 585, 300);
+  image(img2, 1600, 650);
   fill(255);
   stroke(0);
   strokeWeight(5);
   textSize(25);
   fill(255, 255, 255);
-  textSize(15);
+  textSize(30);
   stroke(0);
   strokeWeight(4);
-  text(formatNumber(killupgradecost) + " cost", 610, 310);
-  text("Level " + killlv, 610, 290);
+  text(formatNumber(killupgradecost) + " cost", 1680, 660);
+  text("Level " + killlv, 1680, 625);
 
-  image(img3, 575, 5);
+  image(img3, 1600, 5);
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text(formatNumber(reportcost) + " cost", 610, 140);
-  text("Level " + reportlv, 610, 120);
+  text(formatNumber(reportcost) + " cost", 1680, 280);
+  text("Level " + reportlv, 1682, 320);
 
   fill(60, 80, 180);
-  ellipse(350, 200, 195, 85);
+  ellipse(975, 475, 350, 175);
   fill(255, 0, 0);
   stroke(colors[selected_color]);
   strokeWeight(5);
-  rect(20, 95, 100, 75);
+  rect(20, 150, 300, 150);
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text("6.2^24\nimposters", 26, 130);
+  text("6.2^24\nimposters", 110, 210);
   if (haswon) {
     fill(80, 80, 80);
     stroke(0, 0, 0);
     strokeWeight(3);
-    bezier(200, 244, 160, 270, 150, 200, 135, 178);
-    line(135, 178, 200, 244);
+    bezier(650, 650, 600, 720, 540, 600, 490, 500);
+    line(490, 500, 630, 630,);
     fill(125, 90, 50);
     rotate(0.7);
-    ellipse(320, 66, 45, 25);
+    ellipse(950, 100, 110, 65);
     rotate(-0.7);
     rotate(-0.7);
-    ellipse(-13, 310, 45, 15);
+    ellipse(55, 900, 80, 30);
     rotate(0.7);
     fill(255, 200, 100);
-    text("You are now legally SUSSY!", 500, 210);
+    text("You are now legally SUSSY!", 1350, 450);
   }
   //move the text to the left by 4 pixels
   textX = textX - 4;
 
   if (textX < -300) {
-    textX = 700;
+    textX = 2100;
   }
 }
 function mousePressed() {
-  //  print(mouseX + ", X");
-  //  print(mouseY + ", Y");
+    print(mouseX + ", X");
+    print(mouseY + ", Y");
 
   textsize = textsize + 4;
   if (textsize > 60) {
