@@ -68,13 +68,13 @@ function victorybutton(mouseX, mouseY) {
   return true;
 }
 function customizeclicked(mouseX, mouseY) {
-  if (mouseX <2080 || mouseX > 2210) {
+  if (mouseX < 2080 || mouseX > 2210) {
     return false;
   }
   if (mouseY < 350 || mouseY > 460) {
     return false;
   }
-    return true;
+  return true;
 }
 function setup() {
   createCanvas(2220, 900);
@@ -105,7 +105,7 @@ function formatNumber(number) {
 function draw() {
   processtick();
   background(125, 125, 125);
-  image(hats[selected_hat],750,135);
+  image(hats[selected_hat], 750, 135);
   fill(colors[selected_color]);
   rect(700, 325, 550, 600);
   stroke(0);
@@ -186,14 +186,14 @@ function draw() {
   if (textX < -300) {
     textX = 2100;
   }
-  image(img6,2050,300)
+  image(img6, 2050, 300)
   fill(255)
   textSize(20)
-  text("Customize",2110,340)
+  text("Customize", 2110, 340)
 }
 function mousePressed() {
-//    print(mouseX + ", X");
-//    print(mouseY + ", Y");
+  //    print(mouseX + ", X");
+  //    print(mouseY + ", Y");
 
   textsize = textsize + 4;
   if (textsize > 60) {
@@ -222,7 +222,7 @@ function mousePressed() {
   if (selected_color >= colors.length) {
     selected_color = 0;
   }
-  
+
   if (customizeclicked(mouseX, mouseY)) {
     selected_hat = selected_hat + 1;
   }
@@ -279,7 +279,7 @@ function processtick() {
     reportlv * 0.2
   );
   let reportifkilllv350 = Math.pow(
-    reportlv * 100 * upgradelv * 100 * killlv * 100, 
+    reportlv * 100 * upgradelv * 100 * killlv * 100,
     reportlv
   );
 
@@ -297,8 +297,17 @@ function processtick() {
       currency = Math.ceil(currency + reportifkilllv100);
       imposterspersecond = Math.ceil(reportifkilllv100);
     }
-    if (killlv >=350) {
+    if (killlv >= 350) {
       currency = Math.ceil(currency + reportifkilllv350)
+    }
+
+    if (reportlv >= 1) {
+      if (tick % 60 == 0) {
+        selected_color = selected_color + 1;
+      }
+      if (selected_color >= colors.length) {
+        selected_color = 0;
+      }
     }
   }
 }
