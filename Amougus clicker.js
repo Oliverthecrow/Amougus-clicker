@@ -12,11 +12,14 @@ let tick = 0;
 let reportlv = 0;
 let haswon = false;
 let imposterspersecond = 0;
+let hats;
+let selected_hat = 0
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
   img2 = loadImage("./kill.png");
   img3 = loadImage("./Report.png");
+  img6 = loadImage("./customise.png");
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -64,8 +67,17 @@ function victorybutton(mouseX, mouseY) {
   }
   return true;
 }
+function customizeclicked(mouseX, mouseY) {
+  if (mouseX <2080 || mouseX > 2210) {
+    return false;
+  }
+  if (mouseY < 350 || mouseY > 460) {
+    return false;
+  }
+    return true;
+}
 function setup() {
-  createCanvas(1920, 900);
+  createCanvas(2220, 900);
   // amogus colors
   colors = [
     color(255, 153, 204), //pink
@@ -81,18 +93,20 @@ function setup() {
     color(128, 88, 45), //brown
     color(68, 255, 247), //cyan
   ];
+  hats = [
+    loadImage(""),
+    loadImage("./party hat.png"),
+    loadImage("./cowboy hat.png"),
+  ];
 }
 function formatNumber(number) {
   return number > 1000000000 ? number.toExponential() : number.toLocaleString("en-US");
 }
 function draw() {
   processtick();
-
-  image(img, 20, 400);
-
   background(125, 125, 125);
+  image(hats[selected_hat],750,135);
   fill(colors[selected_color]);
-  //  image(amounguscolor[selected_color], 220, 96);
   rect(700, 325, 550, 600);
   stroke(0);
   strokeWeight(5);
@@ -172,10 +186,14 @@ function draw() {
   if (textX < -300) {
     textX = 2100;
   }
+  image(img6,2050,300)
+  fill(255)
+  textSize(20)
+  text("Customize",2110,340)
 }
 function mousePressed() {
-    print(mouseX + ", X");
-    print(mouseY + ", Y");
+//    print(mouseX + ", X");
+//    print(mouseY + ", Y");
 
   textsize = textsize + 4;
   if (textsize > 60) {
@@ -204,6 +222,14 @@ function mousePressed() {
   if (selected_color >= colors.length) {
     selected_color = 0;
   }
+  
+  if (customizeclicked(mouseX, mouseY)) {
+    selected_hat = selected_hat + 1;
+  }
+  if (selected_hat >= hats.length) {
+    selected_hat = 0
+  }
+
   if (upgradeclicked(mouseX, mouseY)) {
     if (currency >= upgradecost) {
       upgradelv = upgradelv + 1;
