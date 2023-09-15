@@ -267,7 +267,7 @@ function processtick() {
     reportlv * 0.2
   );
   let reportifkilllv350 = Math.pow(
-    reportlv * 100 * upgrade * 100 * killlv * 100, 
+    reportlv * 100 * upgradelv * 100 * killlv * 100, 
     reportlv
   );
 
@@ -290,4 +290,3 @@ function processtick() {
     }
   }
 }
-
