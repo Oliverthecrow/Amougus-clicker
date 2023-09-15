@@ -204,7 +204,7 @@ function draw() {
     stroke(0);
     strokeWeight(1);
     textSize(25);
-    song.volume = 0.3
+    song.volume = 0.2
     song.play();
     background(140,90,50,70);
     text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US",600,150);
