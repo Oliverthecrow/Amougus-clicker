@@ -199,6 +199,8 @@ function draw() {
     textSize(25);
     text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US",600,150);
     song.play();
+    background(140,90,50,65);
+    selected_color = 10;
   }
 }
 function mousePressed() {
