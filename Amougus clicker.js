@@ -16,6 +16,7 @@ let selected_hat = 0;
 let hats;
 let song = new Audio('western-125865.mp3');
 let songstop = stop
+let rebirth = false
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
@@ -225,18 +226,42 @@ function mousePressed() {
     //    print(selected_color);
   }
   if (imposterclicked(mouseX, mouseY)) {
+    if (rebirth) {
     if (reportlv <= 2) {
       currency = Math.ceil(
-        currency + killlv * 0.25 * 1.2 * upgradelv + reportlv
+        currency + killlv * 0.75 * 1.5 * upgradelv + reportlv
       );
     }
+  }
+    else {
+      if (reportlv <= 2) {
+        currency = Math.ceil(
+        currency + killlv * 0.2 * 1.2 * upgradelv + reportlv
+        );
+      }
+      }
+    if (rebirth) {
     if (reportlv >= 3 && reportlv < 7) {
       currency = Math.ceil(
-        currency + killlv * 0.3 * 1.8 * upgradelv * 1.3 + reportlv
+        currency + killlv * 0.85 * 2.5 * upgradelv * 2 + reportlv
       );
     }
+    }
+      else {
+        if (reportlv >= 3 && reportlv < 7) {
+          currency = Math.ceil(
+            currency + killlv * 0.3 * 1.5 * upgradelv + reportlv
+          );
+        }
+      }
+    if (rebirth)
     if (reportlv >= 7) {
-      currency = Math.ceil(currency + killlv * 3 * upgradelv * 5 + reportlv);
+      currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 + reportlv * 2);
+    }
+    else {
+      if (reportlv >= 7) {
+        currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 + reportlv *1.5);
+      }
     }
   }
   //change colour of amougus
