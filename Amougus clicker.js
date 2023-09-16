@@ -174,7 +174,7 @@ function draw() {
   stroke(0);
   strokeWeight(1);
   textSize(25);
-  text("Rebirth\n" + "Cost " + rebirthcost, 60, 445);
+  text("Rebirth\n" + "Cost " + rebirthcost, 50, 365);
 
   fill(60, 80, 180);
   ellipse(975, 475, 350, 175);
