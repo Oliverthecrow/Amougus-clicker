@@ -17,6 +17,7 @@ let hats;
 let song = new Audio('western-125865.mp3');
 let songstop = stop
 let rebirth = false
+let rebirthcost = 1 * 10e+30
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
@@ -24,6 +25,7 @@ function preload() {
   img3 = loadImage("./Report.png");
   img6 = loadImage("./customise.png");
   gun = loadImage("./gun.png");
+ // emergencybutton = loadImage("./emergencybutton.jpg");
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -76,6 +78,15 @@ function customizeclicked(mouseX, mouseY) {
     return false;
   }
   if (mouseY < 350 || mouseY > 460) {
+    return false;
+  }
+  return true;
+}
+function rebirthclicked(mouseX, mouseY) {
+  if (mouseX < 20 || mouseX > 250) {
+    return false;
+  }
+  if (mouseY < 400 || mouseY > 500) {
     return false;
   }
   return true;
@@ -158,6 +169,16 @@ function draw() {
   text(formatNumber(reportcost) + " cost", 1680, 280);
   text("Level " + reportlv, 1682, 320);
 
+  fill(255, 0, 0);
+  stroke(0);
+  strokeWeight(2);
+  rect(20, 400, 230, 100)
+  fill(255);
+  stroke(0);
+  strokeWeight(1);
+  textSize(25);
+  text("Rebirth\n" + "Cost " + rebirthcost, 60, 445);
+
   fill(60, 80, 180);
   ellipse(975, 475, 350, 175);
   fill(255, 0, 0);
@@ -169,24 +190,24 @@ function draw() {
   strokeWeight(3);
   text("6.2^24\nimposters", 110, 210);
   if (haswon) {
-    if(selected_hat == 2) {
-      image(gun,500,420)
+    if (selected_hat == 2) {
+      image(gun, 500, 420)
     }
     else {
-    fill(50, 50, 50);
-    stroke(0, 0, 0);
-    strokeWeight(3);
-    bezier(650, 650, 600, 720, 540, 600, 490, 500);
-    line(490, 500, 630, 630,);
-    fill(125, 90, 50);
-    rotate(0.7);
-    ellipse(950, 100, 110, 65);
-    rotate(-0.7);
-    rotate(-0.7);
-    ellipse(55, 900, 80, 30);
-    rotate(0.7);
-    fill(255, 200, 100);
-    text("You are now legally SUSSY!", 1350, 450);
+      fill(50, 50, 50);
+      stroke(0, 0, 0);
+      strokeWeight(3);
+      bezier(650, 650, 600, 720, 540, 600, 490, 500);
+      line(490, 500, 630, 630,);
+      fill(125, 90, 50);
+      rotate(0.7);
+      ellipse(950, 100, 110, 65);
+      rotate(-0.7);
+      rotate(-0.7);
+      ellipse(55, 900, 80, 30);
+      rotate(0.7);
+      fill(255, 200, 100);
+      text("You are now legally SUSSY!", 1350, 450);
     }
   }
   //move the text to the left by 4 pixels
@@ -200,15 +221,15 @@ function draw() {
   textSize(20)
   text("Customize", 2110, 340)
 
-  if(selected_hat == 2){
-    fill(120,90,45);
+  if (selected_hat == 2) {
+    fill(120, 90, 45);
     stroke(0);
     strokeWeight(1);
     textSize(25);
     song.volume = 0.2
     song.play();
-    background(140,90,50,70);
-    text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US",600,150);
+    background(140, 90, 50, 70);
+    text("THERE AINT ENOUGH ROOM IN THIS TOWN FOR THE TWO OF US", 600, 150);
     selected_color = 10;
   }
   if (selected_hat <= 1) {
@@ -227,40 +248,46 @@ function mousePressed() {
   }
   if (imposterclicked(mouseX, mouseY)) {
     if (rebirth) {
-    if (reportlv <= 2) {
-      currency = Math.ceil(
-        currency + killlv * 0.75 * 1.5 * upgradelv + reportlv
-      );
+      if (reportlv <= 2) {
+        currency = Math.ceil(
+          currency + killlv * 0.75 * 1.5 * upgradelv + reportlv
+        );
+      }
     }
-  }
     else {
       if (reportlv <= 2) {
         currency = Math.ceil(
-        currency + killlv * 0.2 * 1.2 * upgradelv + reportlv
+          currency + killlv * 0.2 * 1.2 * upgradelv + reportlv
         );
       }
-      }
+    }
     if (rebirth) {
-    if (reportlv >= 3 && reportlv < 7) {
-      currency = Math.ceil(
-        currency + killlv * 0.85 * 2.5 * upgradelv * 2 + reportlv
-      );
-    }
-    }
-      else {
-        if (reportlv >= 3 && reportlv < 7) {
-          currency = Math.ceil(
-            currency + killlv * 0.3 * 1.5 * upgradelv + reportlv
-          );
-        }
+      if (reportlv >= 3 && reportlv < 7) {
+        currency = Math.ceil(
+          currency + killlv * 0.85 * 2.5 * upgradelv * 2 + reportlv
+        );
       }
-    if (rebirth)
-    if (reportlv >= 7) {
-      currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 + reportlv * 2);
     }
     else {
+      if (reportlv >= 3 && reportlv < 7) {
+        currency = Math.ceil(
+          currency + killlv * 0.3 * 1.5 * upgradelv + reportlv
+        );
+      }
+    }
+    if (rebirth)
       if (reportlv >= 7) {
-        currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 + reportlv *1.5);
+        currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 + reportlv * 2);
+      }
+      else {
+        if (reportlv >= 7) {
+          currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 + reportlv * 1.5);
+        }
+      }
+    if (rebirthclicked) {
+      if (currency >= 1 * 10e+30) {
+        rebirth = true;
+        currency -= 1 * 10e+30;
       }
     }
   }
@@ -327,36 +354,78 @@ function processtick() {
     reportlv * 13 * upgradelv * 5 * killlv * 3,
     reportlv * 0.2
   );
-  let reportifkilllv350 = Math.pow(
+  let reportifkilllv350rebirth = Math.pow(
     reportlv * 100 * upgradelv * 100 * killlv * 100,
     reportlv
+  );
+  let reportifkilllv0rebirth = Math.pow(
+    reportlv * 7.5 * upgradelv * 2 * killlv * 1.6,
+    reportlv * 0.14
+  );
+  let reportifkilllv50rebirth = Math.pow(
+    reportlv * 12 * upgradelv * 5 * killlv * 3,
+    reportlv * 0.165
+  );
+  let reportifkilllv100rebirht = Math.pow(
+    reportlv * 20 * upgradelv * 10 * killlv * 7.5,
+    reportlv * 0.4
   );
 
   tick++;
   if (tick % 60 == 0) {
     if (reportlv >= 1) {
-      if (killlv <= 49) imposterspersecond = Math.ceil(reportifkilllv0);
-      currency = Math.ceil(currency + reportifkilllv0);
-    }
-    if (killlv >= 50) {
-      imposterspersecond = Math.ceil(reportifkilllv50);
-      currency = Math.ceil(currency + reportifkilllv50);
-    }
-    if (killlv >= 100) {
-      currency = Math.ceil(currency + reportifkilllv100);
-      imposterspersecond = Math.ceil(reportifkilllv100);
-    }
-    if (killlv >= 350) {
-      currency = Math.ceil(currency + reportifkilllv350)
-    }
-
-    if (reportlv >= 1) {
-      if (tick % 60 == 0) {
-        selected_color = selected_color + 1;
+      if (rebirth) {
+        if (killlv <= 49) {
+          imposterspersecond = Math.ceil(reportifkilllv0rebirth);
+          currency = Math.ceil(currency + reportifkilllv0rebirth)
+        }
       }
-      if (selected_color >= colors.length) {
-        selected_color = 0;
+      else {
+        if (killlv <= 49) {
+          imposterspersecond = Math.ceil(reportifkilllv0);
+          currency = Math.ceil(currency + reportifkilllv0);
+        }
+      }
+      if (rebirth) {
+        if (killlv >= 50) {
+          imposterspersecond = Math.ceil(reportifkilllv50rebirth);
+          currency = Math.ceil(currency + reportifkilllv50rebirth);
+        }
+      }
+      else {
+        if (killlv >= 50) {
+          imposterspersecond = Math.ceil(reportifkilllv50);
+          currency = Math.ceil(currency + reportifkilllv50);
+        }
+      }
+      if (rebirth) {
+        if (killlv >= 100) {
+          imposterspersecond = Math.ceil(reportifkilllv100rebirht);
+          currency = Math.ceil(currency + reportifkilllv100rebirht);
+        }
+      }
+      else {
+        if (killlv >= 100) {
+          currency = Math.ceil(currency + reportifkilllv100);
+          imposterspersecond = Math.ceil(reportifkilllv100);
+        }
+      }
+      if (rebirth) {
+        if (killlv >= 350) {
+          imposterspersecond = Math.ceil(reportifkilllv350rebirth);
+          currency = Math.ceil(currency + reportifkilllv350);
+        }
+      }
+
+      if (reportlv >= 1) {
+        if (tick % 60 == 0) {
+          selected_color = selected_color + 1;
+        }
+        if (selected_color >= colors.length) {
+          selected_color = 0;
+        }
       }
     }
   }
 }
+
