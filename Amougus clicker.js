@@ -25,7 +25,7 @@ function preload() {
   img3 = loadImage("./Report.png");
   img6 = loadImage("./customise.png");
   gun = loadImage("./gun.png");
- // emergencybutton = loadImage("./emergencybutton.jpg");
+  emergencybutton = loadImage("./emergencybutton.png");
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -169,10 +169,7 @@ function draw() {
   text(formatNumber(reportcost) + " cost", 1680, 280);
   text("Level " + reportlv, 1682, 320);
 
-  fill(255, 0, 0);
-  stroke(0);
-  strokeWeight(2);
-  rect(20, 400, 230, 100)
+  image(emergencybutton,20,350);
   fill(255);
   stroke(0);
   strokeWeight(1);
