@@ -1,3 +1,4 @@
+let clickableObjects = [];
 let textX = 2100;
 let textsize = 20;
 let selected_color = 0;
@@ -17,13 +18,131 @@ let hats;
 let song = new Audio('western-125865.mp3');
 let songstop = stop;
 let rebirth = false;
-let rebirthcost = 1*10e+30;
+let rebirthcost = 1 * 10e+30;
 let skilltree = false;
 let skilltreepoint = 0;
 let skilltreepointprice = 100;
 let killpointlv = 0;
 let sabopointlv = 0;
 let reportpointlv = 0;
+function onImpostorClick() {
+  if (rebirth) {
+    if (reportlv <= 2) {
+      currency = Math.ceil(
+        currency + killlv * 0.75 * 1.5 * upgradelv + reportlv * upgradelv
+      );
+    }
+    else if (reportlv < 7) {
+      currency = Math.ceil(
+        currency + killlv * 0.85 * 2.5 * upgradelv + reportlv * upgradelv
+      );
+    }
+    else {
+      currency = Math.ceil(
+        currency + killlv * 10 * upgradelv * 20 * reportlv * 2
+      );
+    }
+  }
+  else {
+    if (reportlv <= 2) {
+      currency = Math.ceil(
+        currency + killlv * 0.2 * 1.2 * upgradelv + reportlv * 0.5 * upgradelv
+      );
+    }
+    else if (reportlv < 7) {
+      currency = Math.ceil(
+        currency + killlv * 0.3 * 1.5 * upgradelv + reportlv * 0.5 * upgradelv
+      );
+    }
+    else {
+      currency = Math.ceil(
+        currency + killlv * 5 * upgradelv * 10 * reportlv * 1.5
+      );
+    }
+  }
+
+  // amogus color swapping
+  selected_color = selected_color + 1;
+  if (selected_color >= colors.length) {
+    selected_color = 0;
+  }
+}
+function onUpgradeClick() {
+  if (currency >= upgradecost) {
+    upgradelv++;
+    currency -= upgradecost;
+    upgradecost = Math.floor(upgradecost * 1.58);
+  }
+}
+function onKillClick() {
+  if (currency >= killupgradecost) {
+    killlv++;
+    currency -= killupgradecost;
+    killupgradecost = Math.ceil(killupgradecost * 1.2);
+  }
+}
+function onReportClick() {
+  if (currency >= reportcost) {
+    if (reportlv <= 5) {
+      reportlv++;
+      currency -= reportcost;
+      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.05));
+    }
+    else if (reportlv > 5) {
+      reportlv++;
+      currency -= reportcost;
+      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.1))
+    }
+  }
+}
+
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+class RectangleHitbox {
+  constructor(top_left, bottom_right) {
+    this.top_left = top_left;
+    this.bottom_right = bottom_right;
+  }
+}
+
+class ClickableObject {
+  // imago_loop is a stupid placeholder name for "image" because p5 has already reserved that name
+  constructor(onClickHandler, bounds, imago_loop) {
+    if (imago_loop) {
+      this.imago_loop = imago_loop;
+    }
+    this.onClickHandler = onClickHandler;
+    this.bounds = bounds;
+  }
+  draw() {
+    // if the user passed in a function to draw their button
+    if (typeof this.imago_loop === "function") {
+      this.imago_loop();
+    }
+    // this is what *should* normally run, provided the user passed in an image made from p5's `image()` function.
+    else if (this.imago_loop) {
+      image(this.imago_loop, this.bounds.top_left.x, this.bounds.top_left.y);
+    }
+    return;
+  }
+  boundsCheck(clickPosition) {
+    if (clickPosition.x < this.bounds.top_left.x || clickPosition.x > this.bounds.bottom_right.x) {
+      return false;
+    }
+    if (clickPosition.y < this.bounds.top_left.y || clickPosition.y > this.bounds.bottom_right.y) {
+      return false;
+    }
+    return true;
+  }
+  run() {
+    this.onClickHandler();
+  }
+}
 
 function preload() {
   img = loadImage("./sabotage.png");
@@ -37,107 +156,6 @@ function preload() {
   killskill = loadImage("./kill - Copy.png")
   reportskill = loadImage("./Report - Copy.png")
 }
-function setup() { }
-function imposterclicked(mouseX, mouseY) {
-  if (mouseX < 695 || mouseX > 1250) {
-    return false;
-  }
-  if (mouseY < 320 || mouseY > 905) {
-    return false;
-  }
-  return true;
-}
-function upgradeclicked(mouseX, mouseY) {
-  if (mouseX < 20 || mouseX > 260) {
-    return false;
-  }
-  if (mouseY < 655 || mouseY > 895) {
-    return false;
-  }
-  return true;
-}
-function killclicked(mouseX, mouseY) {
-  if (mouseX < 1590 || mouseX > 1845) {
-    return false;
-  }
-  if (mouseY < 645 || mouseY > 895) {
-    return false;
-  }
-  return true;
-}
-function reportclicked(mouseX, mouseY) {
-  if (mouseX < 1585 || mouseX > 1855) {
-    return false;
-  }
-  if (mouseY < 20 || mouseY > 255) {
-    return false;
-  }
-  return true;
-}
-function victorybutton(mouseX, mouseY) {
-  if (mouseX < 20 || mouseX > 325) {
-    return false;
-  }
-  if (mouseY < 150 || mouseY > 305) {
-    return false;
-  }
-  return true;
-}
-function customizeclicked(mouseX, mouseY) {
-  if (mouseX < 2080 || mouseX > 2210) {
-    return false;
-  }
-  if (mouseY < 350 || mouseY > 460) {
-    return false;
-  }
-  return true;
-}
-function rebirthclicked(mouseX, mouseY) {
-  if (mouseX < 20 || mouseX > 250) {
-    return false;
-  }
-  if (mouseY < 400 || mouseY > 500) {
-    return false;
-  }
-  return true;
-}
-function skilltreeclicked(mouseX, mouseY) {
-  if (mouseX < 1600 || mouseX > 1850) {
-    return false;
-  }
-  if (mouseY < 350 || mouseY > 550) {
-    return false;
-  }
-  return true
-}
-function killskilltree(mouseX, mouseY) {
-  if (mouseX < 520 || mouseX > 720) {
-    return false;
-  }
-  if (mouseY < 35 || mouseY > 240) {
-    return false;
-  }
-  return true;
-}
-function saboskilltree(mouseX, mouseY) {
-  if (mouseX < 875 || mouseX > 1075) {
-    return false;
-  }
-  if (mouseY < 40 || mouseY > 245) {
-    return false;
-  }
-  return true; 
-}
-function reportskilltree(mouseX, mouseY) {
-  if (mouseX < 1250 || mouseX > 1450) {
-    return false;
-  }
-  if (mouseY < 35 || mouseY > 240) {
-    return false;
-  }
-  return true; 
-}
-
 function setup() {
   createCanvas(2220, 900);
   // amogus colors
@@ -160,40 +178,107 @@ function setup() {
     partyhat = loadImage("./party hat.png"),
     cowboyhat = loadImage("./cowboy hat.png"),
   ];
+  clickableObjects = [
+    new ClickableObject(onImpostorClick,
+      new RectangleHitbox(new Point(695, 320), new Point(1250, 905)), () => {
+        image(hats[selected_hat], 750, 130);
+        // tha mogus
+        fill(colors[selected_color]);
+        rect(700, 325, 550, 600);
+        fill(60, 80, 180);
+        ellipse(975, 475, 350, 175);
+      }),                               // impostor
+
+    new ClickableObject(onUpgradeClick,
+      new RectangleHitbox(new Point(20, 655), new Point(260, 895)), img),                             // upgrade
+
+    new ClickableObject(onKillClick,
+      new RectangleHitbox(new Point(1590, 645), new Point(1845, 895)), img2),                         // kill
+
+    new ClickableObject(onReportClick,
+      new RectangleHitbox(new Point(1585, 20), new Point(1855, 255)), img3),                          // report
+
+    new ClickableObject(() => {
+      if (currency >= 6.2e+24) {
+        haswon = true;
+        currency -= 6.2e+24;
+      }
+    },
+      new RectangleHitbox(new Point(20, 150), new Point(325, 305))),                                  // the win button
+
+    new ClickableObject(() => { selected_hat = (selected_hat + 1) % hats.length; },
+      new RectangleHitbox(new Point(2080, 350), new Point(2210, 460)), img6),                         // customizer
+
+    new ClickableObject(() => {
+      if (currency >= 1 * 10e+30) {
+        rebirth = true;
+        currency -= 1 * 10e+30;
+      }
+    }, new RectangleHitbox(new Point(20, 400), new Point(250, 500)), emergencybutton), // rebirth
+
+    new ClickableObject(() => { skilltree = !skilltree; },
+      new RectangleHitbox(new Point(1600, 350), new Point(1850, 550)), hand), // skilltree
+
+    new ClickableObject(() => {
+      if (skilltreepoint >= 1) {
+        killpointlv += 1
+        killlv = killlv + killpointlv * 5
+        skilltreepoint -= 1
+      }
+    },
+      new RectangleHitbox(new Point(520, 35), new Point(720, 240)), () => { if (skilltree) { image(killskill, 520, 35) } }),                       // kill skill
+
+    new ClickableObject(() => {
+      if (skilltreepoint >= 1) {
+        sabopointlv += 1
+        upgradelv = upgradelv + sabopointlv * 5
+        skilltreepoint -= 1
+      }
+    },
+      new RectangleHitbox(new Point(875, 40), new Point(1075, 245)), () => { if (skilltree) { image(sabskill, 875, 40) } }),                       // sab skill
+
+    new ClickableObject(() => {
+      if (skilltreepoint >= 1) {
+        reportpointlv += 1
+        reportlv = reportlv * 1.2
+        skilltreepoint -= 1
+      }
+    },
+      new RectangleHitbox(new Point(1250, 35), new Point(1450, 240)), () => { if (skilltree) { image(reportskill, 1250, 35) } }),                    // report skill
+  ]
 }
 function formatNumber(number) {
   return number > 1000000000 ? number.toExponential() : number.toLocaleString("en-US");
 }
 function displayreportlv(number) {
-  return number.toLocaleString("en-US", {maximumFractionDigits : 3});
+  return number.toLocaleString("en-US", { maximumFractionDigits: 3 });
 }
 function draw() {
   processtick();
   background(80, 80, 80);
-  image(hats[selected_hat], 750, 135);
-  fill(colors[selected_color]);
-  rect(700, 325, 550, 600);
+
   stroke(0);
   strokeWeight(5);
   textSize(50);
   text("Amougus", textX, 50);
 
-  image(hand,1650,350)
+  clickableObjects.forEach((drawable) => {
+    drawable.draw();
+  });
+
   fill(255)
   stroke(0)
   strokeWeight(2)
   textSize(20)
-  text("skill points " + skilltreepoint,1680,570)
+  text("skill points " + skilltreepoint, 1680, 570)
+
   if (skilltree) {
-  fill(180,180,180,80)
-  rect(480,30,1020,270)
-  image(killskill,520,35)
-  image(sabskill,875,40)
-  image(reportskill,1250,35)
+    fill(180, 180, 180, 80)
+    rect(480, 30, 1020, 270)
   }
 
   fill(255, 255, 255);
-  stroke(0, 0, 0);
+  stroke(0);
   strokeWeight(5);
   textSize(30);
   text("Click", 950, 800);
@@ -203,7 +288,6 @@ function draw() {
   textSize(35);
   text("imposters per second " + formatNumber(imposterspersecond), 50, 110);
 
-  image(img, 20, 650);
   stroke(0);
   strokeWeight(2);
   fill(255);
@@ -214,7 +298,6 @@ function draw() {
   text("Level " + upgradelv, 90, 625);
   text(formatNumber(upgradecost) + " cost", 88, 660);
 
-  image(img2, 1600, 650);
   fill(255);
   stroke(0);
   strokeWeight(5);
@@ -226,22 +309,18 @@ function draw() {
   text(formatNumber(killupgradecost) + " cost", 1680, 660);
   text("Level " + killlv, 1680, 625);
 
-  image(img3, 1600, 5);
   fill(255);
   stroke(0);
   strokeWeight(3);
   text(formatNumber(reportcost) + " cost", 1550, 280);
   text("Level " + displayreportlv(reportlv), 1600, 320);
 
-  image(emergencybutton,20,350);
   fill(255);
   stroke(0);
   strokeWeight(1);
   textSize(25);
   text("Rebirth\n" + "Cost " + rebirthcost, 50, 365);
 
-  fill(60, 80, 180);
-  ellipse(975, 475, 350, 175);
   fill(255, 0, 0);
   stroke(colors[selected_color]);
   strokeWeight(5);
@@ -271,13 +350,10 @@ function draw() {
       text("You are now legally SUSSY!", 1350, 450);
     }
   }
-  //move the text to the left by 4 pixels
-  textX = textX - 4;
 
   if (textX < -300) {
     textX = 2100;
   }
-  image(img6, 2050, 300)
   fill(255)
   textSize(20)
   text("Customize", 2110, 340)
@@ -298,182 +374,69 @@ function draw() {
     song.currentTime = 0
   }
 }
-function mousePressed() {
-  //    print(mouseX + ", X");
-  //    print(mouseY + ", Y");
 
+function mousePressed() {
+  console.log(`Mouse X: ${mouseX}\nMouseY: ${mouseY}`);
   textsize = textsize + 4;
   if (textsize > 60) {
     textsize = 60;
-    //    print(selected_color);
   }
-  if (skilltreeclicked(mouseX,mouseY)) {
-    if (skilltree == false) {
-      skilltree = true
+
+  clickableObjects.forEach((clickableObject) => {
+    if (clickableObject.boundsCheck(new Point(mouseX, mouseY))) {
+      console.log(clickableObject);
+      clickableObject.run();
     }
-    else if (skilltree == true) {
-      skilltree = false
-    }
-  }
+  });
+}
+function processtick() {
+  //move the text to the left by 4 pixels
+  textX = textX - 4;
+
   if (currency >= skilltreepointprice) {
     skilltreepoint = skilltreepoint + 1;
     skilltreepointprice = skilltreepointprice * 10;
   }
 
-
-  if (imposterclicked(mouseX, mouseY)) {
-    if (rebirth) {
-      if (reportlv <= 2) {
-        currency = Math.ceil(
-          currency + killlv * 0.75 * 1.5 * upgradelv + reportlv * upgradelv
-        );
-      }
-    }
-    else {
-      if (reportlv <= 2) {
-        currency = Math.ceil(
-          currency + killlv * 0.2 * 1.2 * upgradelv + reportlv * 0.5 * upgradelv 
-        );
-      }
-    }
-    if (rebirth) {
-      if (reportlv >= 2.0000001 && reportlv < 7) {
-        currency = Math.ceil(
-          currency + killlv * 0.85 * 2.5 * upgradelv + reportlv * upgradelv 
-        );
-      }
-    }
-    else {
-      if (reportlv >= 2.1 && reportlv < 7) {
-        currency = Math.ceil(
-          currency + killlv * 0.3 * 1.5 * upgradelv + reportlv * 0.5 * upgradelv
-        );
-      }
-    }
-    if (rebirth)
-      if (reportlv >= 7) {
-        currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 * reportlv * 2);
-      }
-      else {
-        if (reportlv >= 7) {
-          currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 * reportlv * 1.5);
-        }
-      }
-    if (rebirthclicked) {
-      if (currency >= 1 * 10e+30) {
-        rebirth = true;
-        currency -= 1 * 10e+30;
-      }
-    }
-  }
-  //change colour of amougus
-  if (imposterclicked(mouseX, mouseY)) {
-    selected_color = selected_color + 1;
-  }
-  if (selected_color >= colors.length) {
-    selected_color = 0;
-  }
-
-  if (customizeclicked(mouseX, mouseY)) {
-    selected_hat = selected_hat + 1;
-  }
-  if (selected_hat >= hats.length) {
-    selected_hat = 0
-  }
-
-  if (upgradeclicked(mouseX, mouseY)) {
-    if (currency >= upgradecost) {
-      upgradelv = upgradelv + 1;
-      currency = currency - upgradecost;
-      upgradecost = Math.floor(upgradecost * 1.58);
-    }
-  }
-  if (killclicked(mouseX, mouseY)) {
-    if (currency >= killupgradecost) {
-      killlv = killlv + 1;
-      currency = currency - killupgradecost;
-      killupgradecost = Math.ceil(killupgradecost * 1.2);
-    }
-  }
-  if (reportclicked(mouseX, mouseY)) {
-    if (currency >= reportcost) {
-      if (reportlv <= 5) {
-        reportlv++;
-        currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.05));
-      }
-      else if (reportlv >= 6) {
-        reportlv++;
-        currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.1))
-      }
-    }
-  }
-  if (victorybutton(mouseX, mouseY)) {
-    if (currency >= 6.2e+24) {
-      haswon = true;
-      currency -= 6.2e+24;
-    }
-  }
-  if (killskilltree(mouseX, mouseY)) {
-    if (skilltreepoint >= 1) {
-      killpointlv += 1
-      killlv = killlv+killpointlv*5
-      skilltreepoint -= 1
-    }
-  }
-  if (saboskilltree(mouseX, mouseY)) {
-    if (skilltreepoint >= 1) {
-      sabopointlv += 1
-      upgradelv = upgradelv+sabopointlv*5
-      skilltreepoint -= 1
-    }
-  }
-  if (reportskilltree(mouseX, mouseY)) {
-    if (skilltreepoint >= 1) {
-      reportpointlv += 1
-      reportlv = reportlv*1.2
-      skilltreepoint -= 1
-    }
-  }
-}
-function processtick() {
-  let reportifkilllv0 = Math.pow(
-    reportlv * 3 * upgradelv * killlv * 1.4,
-    reportlv * 0.122
-  );
-  let reportifkilllv50 = Math.pow(
-    reportlv * 10 * upgradelv * 2 * killlv * 2,
-    reportlv * 0.14
-  );
-  let reportifkilllv100 = Math.pow(
-    reportlv * 7 * upgradelv * 3 * killlv * 2.5,
-    reportlv * 0.16
-  );
-  let reportifkilllv350rebirth = Math.pow(
-    reportlv * 100 * upgradelv * 100 * killlv * 100,
-    reportlv
-  );
-  let reportifkilllv0rebirth = Math.pow(
-    reportlv * 8 * upgradelv * 2 * killlv * 1.6,
-    reportlv * 0.135
-  );
-  let reportifkilllv50rebirth = Math.pow(
-    reportlv * 15 * upgradelv * 5 * killlv * 3,
-    reportlv * 0.165
-  );
-  let reportifkilllv100rebirht = Math.pow(
-    reportlv * 20 * upgradelv * 10 * killlv * 7.5,
-    reportlv * 0.32
-  );
-
   tick++;
   if (tick % 60 == 0) {
     if (reportlv >= 1) {
+      let reportifkilllv0 = Math.pow(
+        reportlv * 3 * upgradelv * killlv * 1.4,
+        reportlv * 0.122
+      );
+      let reportifkilllv50 = Math.pow(
+        reportlv * 10 * upgradelv * 2 * killlv * 2,
+        reportlv * 0.14
+      );
+      let reportifkilllv100 = Math.pow(
+        reportlv * 7 * upgradelv * 3 * killlv * 2.5,
+        reportlv * 0.16
+      );
+      let reportifkilllv350rebirth = Math.pow(
+        reportlv * 100 * upgradelv * 100 * killlv * 100,
+        reportlv
+      );
+      let reportifkilllv0rebirth = Math.pow(
+        reportlv * 8 * upgradelv * 2 * killlv * 1.6,
+        reportlv * 0.135
+      );
+      let reportifkilllv50rebirth = Math.pow(
+        reportlv * 15 * upgradelv * 5 * killlv * 3,
+        reportlv * 0.165
+      );
+      let reportifkilllv100rebirht = Math.pow(
+        reportlv * 20 * upgradelv * 10 * killlv * 7.5,
+        reportlv * 0.32
+      );
       if (rebirth) {
         if (killlv <= 49) {
           imposterspersecond = Math.ceil(reportifkilllv0rebirth);
           currency = Math.ceil(currency + reportifkilllv0rebirth)
+        }
+        if (killlv > 49) {
+          imposterspersecond = Math.ceil(reportifkilllv50rebirth);
+          currency = Math.ceil(currency + reportifkilllv50rebirth);
         }
       }
       else {
@@ -481,23 +444,19 @@ function processtick() {
           imposterspersecond = Math.ceil(reportifkilllv0);
           currency = Math.ceil(currency + reportifkilllv0);
         }
-      }
-      if (rebirth) {
-        if (killlv >= 50) {
-          imposterspersecond = Math.ceil(reportifkilllv50rebirth);
-          currency = Math.ceil(currency + reportifkilllv50rebirth);
-        }
-      }
-      else {
         if (killlv >= 50) {
           imposterspersecond = Math.ceil(reportifkilllv50);
           currency = Math.ceil(currency + reportifkilllv50);
         }
       }
       if (rebirth) {
-        if (killlv >= 100) {
+        if (killlv >= 100 && killlv < 350) {
           imposterspersecond = Math.ceil(reportifkilllv100rebirht);
           currency = Math.ceil(currency + reportifkilllv100rebirht);
+        }
+        else if (killlv >= 350) {
+          imposterspersecond = Math.ceil(reportifkilllv350rebirth);
+          currency = Math.ceil(currency + reportifkilllv350);
         }
       }
       else {
@@ -506,17 +465,9 @@ function processtick() {
           imposterspersecond = Math.ceil(reportifkilllv100);
         }
       }
-      if (rebirth) {
-        if (killlv >= 350) {
-          imposterspersecond = Math.ceil(reportifkilllv350rebirth);
-          currency = Math.ceil(currency + reportifkilllv350);
-        }
-      }
 
       if (reportlv >= 1) {
-        if (tick % 60 == 0) {
-          selected_color = selected_color + 1;
-        }
+        selected_color = selected_color + 1;
         if (selected_color >= colors.length) {
           selected_color = 0;
         }
@@ -524,4 +475,5 @@ function processtick() {
     }
   }
 }
+
 
