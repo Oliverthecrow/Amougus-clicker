@@ -434,9 +434,9 @@ function processtick() {
         reportlv * 15 * upgradelv * 5 * killlv * 3,
         reportlv * 0.165
       );
-      let reportifkilllv100rebirht = Math.pow(
-        reportlv * 20 * upgradelv * 10 * killlv * 7.5,
-        reportlv * 0.32
+      let reportifkilllv100rebirth = Math.pow(
+        reportlv * 20 * upgradelv * 10 * killlv * 5,
+        reportlv * 0.225
       );
       if (rebirth) {
         if (killlv <= 49) {
@@ -460,8 +460,8 @@ function processtick() {
       }
       if (rebirth) {
         if (killlv >= 100 && killlv < 350) {
-          imposterspersecond = Math.ceil(reportifkilllv100rebirht);
-          currency = Math.ceil(currency + reportifkilllv100rebirht);
+          imposterspersecond = Math.ceil(reportifkilllv100rebirth);
+          currency = Math.ceil(currency + reportifkilllv100rebirth);
         }
         else if (killlv >= 350) {
           imposterspersecond = Math.ceil(reportifkilllv350rebirth);
