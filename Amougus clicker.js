@@ -17,7 +17,8 @@ let hats;
 let song = new Audio('western-125865.mp3');
 let songstop = stop
 let rebirth = false
-let rebirthcost = 1 * 10e+30
+let rebirthcost = 1*10e+30
+let skilltree = false
 
 function preload() {
   img = loadImage("./yel9tkhg9en51.png");
@@ -26,6 +27,7 @@ function preload() {
   img6 = loadImage("./customise.png");
   gun = loadImage("./gun.png");
   emergencybutton = loadImage("./emergencybutton.png");
+  hand = loadImage("./skilltree.png");
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -91,6 +93,16 @@ function rebirthclicked(mouseX, mouseY) {
   }
   return true;
 }
+function skilltreeclicked(mouseX, mouseY) {
+  if (mouseX < 1600 || mouseX > 1850) {
+    return false;
+  }
+  if (mouseY < 350 || mouseY > 550) {
+    return false;
+  }
+  return true
+}
+
 function setup() {
   createCanvas(2220, 900);
   // amogus colors
@@ -127,6 +139,12 @@ function draw() {
   strokeWeight(5);
   textSize(50);
   text("Amougus", textX, 50);
+
+  image(hand,1650,350)
+  if (skilltree) {
+  fill(180,180,180,80)
+  rect(480,30,1020,270)
+  }
 
   fill(255, 255, 255);
   stroke(0, 0, 0);
@@ -243,6 +261,13 @@ function mousePressed() {
     textsize = 60;
     //    print(selected_color);
   }
+  if (skilltreeclicked(mouseX,mouseY)) {
+    skilltree = true
+    if (skilltree == false) {
+      skilltree = false
+    }
+  }
+
   if (imposterclicked(mouseX, mouseY)) {
     if (rebirth) {
       if (reportlv <= 2) {
