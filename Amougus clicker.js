@@ -400,12 +400,12 @@ function mousePressed() {
       if (reportlv <= 5) {
         reportlv++;
         currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.05));
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv-reportpointlv * 0.05));
       }
       else if (reportlv >= 6) {
         reportlv++;
         currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.1))
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv-reportpointlv * 0.1));
       }
     }
   }
@@ -432,7 +432,7 @@ function mousePressed() {
   if (reportskilltree(mouseX, mouseY)) {
     if (skilltreepoint >= 1) {
       reportpointlv += 1
-      reportlv = reportlv*1.2
+      reportlv = reportlv*1.1
       skilltreepoint -= 1
     }
   }
