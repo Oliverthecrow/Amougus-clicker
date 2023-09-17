@@ -18,13 +18,14 @@ let hats;
 let song = new Audio('western-125865.mp3');
 let songstop = stop;
 let rebirth = false;
-let rebirthcost = 1 * 10e+30;
+let rebirthcost = 3e+9;
 let skilltree = false;
 let skilltreepoint = 0;
 let skilltreepointprice = 100;
 let killpointlv = 0;
 let sabopointlv = 0;
 let reportpointlv = 0;
+
 function onImpostorClick() {
   if (rebirth) {
     if (reportlv <= 2) {
@@ -210,9 +211,17 @@ function setup() {
       new RectangleHitbox(new Point(2080, 350), new Point(2210, 460)), img6),                         // customizer
 
     new ClickableObject(() => {
-      if (currency >= 1 * 10e+30) {
+      if (currency >= rebirthcost) {
+        if (rebirth == false) {
         rebirth = true;
-        currency -= 1 * 10e+30;
+        currency -= rebirthcost;
+        reportlv = 0
+        killlv = 0
+        upgradelv = 0
+        reportcost = 1000
+        killupgradecost = 5
+        upgradecost = 10
+        }
       }
     }, new RectangleHitbox(new Point(20, 400), new Point(250, 500)), emergencybutton), // rebirth
 
@@ -222,7 +231,7 @@ function setup() {
     new ClickableObject(() => {
       if (skilltreepoint >= 1) {
         killpointlv += 1
-        killlv = killlv + killpointlv * 5
+        killlv = killlv + killpointlv * 7.5
         skilltreepoint -= 1
       }
     },
@@ -240,7 +249,7 @@ function setup() {
     new ClickableObject(() => {
       if (skilltreepoint >= 1) {
         reportpointlv += 1
-        reportlv = reportlv * 1.2
+        reportlv = reportlv + 0.25
         skilltreepoint -= 1
       }
     },
@@ -406,7 +415,7 @@ function processtick() {
         reportlv * 0.122
       );
       let reportifkilllv50 = Math.pow(
-        reportlv * 10 * upgradelv * 2 * killlv * 2,
+        reportlv * 5 * upgradelv * 2 * killlv * 2,
         reportlv * 0.14
       );
       let reportifkilllv100 = Math.pow(
