@@ -214,7 +214,7 @@ function setup() {
       if (currency >= rebirthcost) {
         if (rebirth == false) {
         rebirth = true;
-        currency -= rebirthcost;
+        currency -= (rebirthcost);
         reportlv = 0
         killlv = 0
         upgradelv = 0
@@ -328,7 +328,7 @@ function draw() {
   stroke(0);
   strokeWeight(1);
   textSize(25);
-  text("Rebirth\n" + "Cost " + rebirthcost, 50, 365);
+  text("Rebirth\n" + "Cost " + formatNumber(rebirthcost), 50, 365);
 
   fill(255, 0, 0);
   stroke(colors[selected_color]);
