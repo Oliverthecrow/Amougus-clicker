@@ -15,19 +15,27 @@ let imposterspersecond = 0;
 let selected_hat = 0;
 let hats;
 let song = new Audio('western-125865.mp3');
-let songstop = stop
-let rebirth = false
-let rebirthcost = 1*10e+30
-let skilltree = false
+let songstop = stop;
+let rebirth = false;
+let rebirthcost = 1*10e+30;
+let skilltree = false;
+let skilltreepoint = 0;
+let skilltreepointprice = 100;
+let killpointlv = 0;
+let sabopointlv = 0;
+let reportpointlv = 0;
 
 function preload() {
-  img = loadImage("./yel9tkhg9en51.png");
+  img = loadImage("./sabotage.png");
   img2 = loadImage("./kill.png");
   img3 = loadImage("./Report.png");
   img6 = loadImage("./customise.png");
   gun = loadImage("./gun.png");
   emergencybutton = loadImage("./emergencybutton.png");
   hand = loadImage("./skilltree.png");
+  sabskill = loadImage("./sabotage - Copy.png")
+  killskill = loadImage("./kill - Copy.png")
+  reportskill = loadImage("./Report - Copy.png")
 }
 function setup() { }
 function imposterclicked(mouseX, mouseY) {
@@ -102,6 +110,33 @@ function skilltreeclicked(mouseX, mouseY) {
   }
   return true
 }
+function killskilltree(mouseX, mouseY) {
+  if (mouseX < 520 || mouseX > 720) {
+    return false;
+  }
+  if (mouseY < 35 || mouseY > 240) {
+    return false;
+  }
+  return true;
+}
+function saboskilltree(mouseX, mouseY) {
+  if (mouseX < 875 || mouseX > 1075) {
+    return false;
+  }
+  if (mouseY < 40 || mouseY > 245) {
+    return false;
+  }
+  return true; 
+}
+function reportskilltree(mouseX, mouseY) {
+  if (mouseX < 1250 || mouseX > 1450) {
+    return false;
+  }
+  if (mouseY < 35 || mouseY > 240) {
+    return false;
+  }
+  return true; 
+}
 
 function setup() {
   createCanvas(2220, 900);
@@ -129,6 +164,9 @@ function setup() {
 function formatNumber(number) {
   return number > 1000000000 ? number.toExponential() : number.toLocaleString("en-US");
 }
+function displayreportlv(number) {
+  return number.toLocaleString("en-US", {maximumFractionDigits : 3});
+}
 function draw() {
   processtick();
   background(80, 80, 80);
@@ -141,9 +179,17 @@ function draw() {
   text("Amougus", textX, 50);
 
   image(hand,1650,350)
+  fill(255)
+  stroke(0)
+  strokeWeight(2)
+  textSize(20)
+  text("skill points " + skilltreepoint,1680,570)
   if (skilltree) {
   fill(180,180,180,80)
   rect(480,30,1020,270)
+  image(killskill,520,35)
+  image(sabskill,875,40)
+  image(reportskill,1250,35)
   }
 
   fill(255, 255, 255);
@@ -184,8 +230,8 @@ function draw() {
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text(formatNumber(reportcost) + " cost", 1680, 280);
-  text("Level " + reportlv, 1682, 320);
+  text(formatNumber(reportcost) + " cost", 1550, 280);
+  text("Level " + displayreportlv(reportlv), 1600, 320);
 
   image(emergencybutton,20,350);
   fill(255);
@@ -262,48 +308,55 @@ function mousePressed() {
     //    print(selected_color);
   }
   if (skilltreeclicked(mouseX,mouseY)) {
-    skilltree = true
     if (skilltree == false) {
+      skilltree = true
+    }
+    else if (skilltree == true) {
       skilltree = false
     }
   }
+  if (currency >= skilltreepointprice) {
+    skilltreepoint = skilltreepoint + 1;
+    skilltreepointprice = skilltreepointprice * 10;
+  }
+
 
   if (imposterclicked(mouseX, mouseY)) {
     if (rebirth) {
       if (reportlv <= 2) {
         currency = Math.ceil(
-          currency + killlv * 0.75 * 1.5 * upgradelv + reportlv
+          currency + killlv * 0.75 * 1.5 * upgradelv + reportlv * upgradelv
         );
       }
     }
     else {
       if (reportlv <= 2) {
         currency = Math.ceil(
-          currency + killlv * 0.2 * 1.2 * upgradelv + reportlv
+          currency + killlv * 0.2 * 1.2 * upgradelv + reportlv * 0.5 * upgradelv 
         );
       }
     }
     if (rebirth) {
-      if (reportlv >= 3 && reportlv < 7) {
+      if (reportlv >= 2.0000001 && reportlv < 7) {
         currency = Math.ceil(
-          currency + killlv * 0.85 * 2.5 * upgradelv * 2 + reportlv
+          currency + killlv * 0.85 * 2.5 * upgradelv + reportlv * upgradelv 
         );
       }
     }
     else {
-      if (reportlv >= 3 && reportlv < 7) {
+      if (reportlv >= 2.1 && reportlv < 7) {
         currency = Math.ceil(
-          currency + killlv * 0.3 * 1.5 * upgradelv + reportlv
+          currency + killlv * 0.3 * 1.5 * upgradelv + reportlv * 0.5 * upgradelv
         );
       }
     }
     if (rebirth)
       if (reportlv >= 7) {
-        currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 + reportlv * 2);
+        currency = Math.ceil(currency + killlv * 10 * upgradelv * 20 * reportlv * 2);
       }
       else {
         if (reportlv >= 7) {
-          currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 + reportlv * 1.5);
+          currency = Math.ceil(currency + killlv * 5 * upgradelv * 10 * reportlv * 1.5);
         }
       }
     if (rebirthclicked) {
@@ -347,12 +400,12 @@ function mousePressed() {
       if (reportlv <= 5) {
         reportlv++;
         currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.030));
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.05));
       }
       else if (reportlv >= 6) {
         reportlv++;
         currency -= reportcost;
-        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.02))
+        reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.1))
       }
     }
   }
@@ -362,35 +415,56 @@ function mousePressed() {
       currency -= 6.2e+24;
     }
   }
+  if (killskilltree(mouseX, mouseY)) {
+    if (skilltreepoint >= 1) {
+      killpointlv += 1
+      killlv = killlv+killpointlv*5
+      skilltreepoint -= 1
+    }
+  }
+  if (saboskilltree(mouseX, mouseY)) {
+    if (skilltreepoint >= 1) {
+      sabopointlv += 1
+      upgradelv = upgradelv+sabopointlv*5
+      skilltreepoint -= 1
+    }
+  }
+  if (reportskilltree(mouseX, mouseY)) {
+    if (skilltreepoint >= 1) {
+      reportpointlv += 1
+      reportlv = reportlv*1.2
+      skilltreepoint -= 1
+    }
+  }
 }
 function processtick() {
   let reportifkilllv0 = Math.pow(
-    reportlv * 5 * upgradelv * 1.5 * killlv * 1.6,
+    reportlv * 3 * upgradelv * killlv * 1.4,
     reportlv * 0.122
   );
   let reportifkilllv50 = Math.pow(
-    reportlv * 8 * upgradelv * 3 * killlv * 2,
-    reportlv * 0.135
+    reportlv * 10 * upgradelv * 2 * killlv * 2,
+    reportlv * 0.14
   );
   let reportifkilllv100 = Math.pow(
-    reportlv * 13 * upgradelv * 5 * killlv * 3,
-    reportlv * 0.2
+    reportlv * 7 * upgradelv * 3 * killlv * 2.5,
+    reportlv * 0.16
   );
   let reportifkilllv350rebirth = Math.pow(
     reportlv * 100 * upgradelv * 100 * killlv * 100,
     reportlv
   );
   let reportifkilllv0rebirth = Math.pow(
-    reportlv * 7.5 * upgradelv * 2 * killlv * 1.6,
-    reportlv * 0.14
+    reportlv * 8 * upgradelv * 2 * killlv * 1.6,
+    reportlv * 0.135
   );
   let reportifkilllv50rebirth = Math.pow(
-    reportlv * 12 * upgradelv * 5 * killlv * 3,
+    reportlv * 15 * upgradelv * 5 * killlv * 3,
     reportlv * 0.165
   );
   let reportifkilllv100rebirht = Math.pow(
     reportlv * 20 * upgradelv * 10 * killlv * 7.5,
-    reportlv * 0.4
+    reportlv * 0.32
   );
 
   tick++;
