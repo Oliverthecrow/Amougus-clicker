@@ -87,12 +87,12 @@ function onReportClick() {
     if (reportlv <= 5) {
       reportlv++;
       currency -= reportcost;
-      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.05));
+      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv-reportpointlv * 0.05));
     }
     else if (reportlv > 5) {
       reportlv++;
       currency -= reportcost;
-      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv * 0.1))
+      reportcost = Math.ceil(Math.pow(reportcost, 1 + reportlv-reportpointlv * 0.1))
     }
   }
 }
