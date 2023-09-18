@@ -30,7 +30,7 @@ function onImpostorClick() {
   if (rebirth) {
     if (reportlv <= 2) {
       currency = Math.ceil(
-        currency + killlv * 0.75 * 1.5 * upgradelv + reportlv * upgradelv
+        currency + killlv * 0.75 * 1.5 * upgradelv + reportlv * upgradelv + 1 
       );
     }
     else if (reportlv < 7) {
