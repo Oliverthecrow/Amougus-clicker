@@ -328,7 +328,7 @@ function draw() {
   stroke(0);
   strokeWeight(1);
   textSize(25);
-  text("Rebirth\n" + "Cost " + formatNumber(rebirthcost), 50, 365);
+  text("Rebirth\n" + "Cost " + "3e+9", 50, 365);
 
   fill(255, 0, 0);
   stroke(colors[selected_color]);
