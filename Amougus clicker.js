@@ -214,7 +214,7 @@ function setup() {
       if (currency >= rebirthcost) {
         if (rebirth == false) {
         rebirth = true;
-        currency -= (rebirthcost);
+        currency = 0;
         reportlv = 0
         killlv = 0
         upgradelv = 0
