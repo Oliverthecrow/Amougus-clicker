@@ -200,9 +200,9 @@ function setup() {
       new RectangleHitbox(new Point(1585, 20), new Point(1855, 255)), img3),                          // report
 
     new ClickableObject(() => {
-      if (currency >= 6.2e+24) {
+      if (currency >= 6.02e+24) {
         haswon = true;
-        currency -= 6.2e+24;
+        currency -= 6.02e+24;
       }
     },
       new RectangleHitbox(new Point(20, 150), new Point(325, 305))),                                  // the win button
@@ -337,7 +337,7 @@ function draw() {
   fill(255);
   stroke(0);
   strokeWeight(3);
-  text("6.2^24\nimposters", 110, 210);
+  text("6.02*10^23\nimposters", 110, 210);
   if (haswon) {
     if (selected_hat == 2) {
       image(gun, 500, 420)
